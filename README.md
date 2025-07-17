@@ -4,28 +4,22 @@ A simple RESTful API using ExpressJS to create and vote on polls
 
 ## Features
 
-- Create new polls with custom options
-- List all polls
-- View a specific poll and its results
-- Vote on a poll (one vote per user, based on IP)
+-   Create new polls with custom options
+-   List all polls
+-   View a specific poll and its results
+-   Vote on a poll (one vote per user, based on IP)
 
 ## Requirements
 
-- Node.js (v14+ recommended)
-- npm
+-   Node.js (v14+ recommended)
+-   npm
 
 ## Installation
 
 To use the interactive CLI for the application:
 
-- Clone this repository
-- Navigate to the backend directory:
-
-```sh
-cd backend
-```
-
-- Install dependencies:
+-   Clone this repository
+-   Install dependencies:
 
 ```sh
 npm install
@@ -33,13 +27,13 @@ npm install
 
 ## Running the CLI
 
-In the backend directory, start the Pollio API server with:
+Start the Pollio API server with:
 
 ```sh
-npm start
+npm run start
 ```
 
-Then, run the following to start the interactive CLI:
+Then, run the following in a separate terminal to start the interactive CLI:
 
 ```sh
 npx ts-node ./src/cli.ts
@@ -49,42 +43,43 @@ npx ts-node ./src/cli.ts
 
 ### Get All Polls
 
-- GET `/polls`
-- Returns a list of all created polls
+-   GET `/polls`
+-   Returns a list of all created polls
 
 ### Get Poll by ID
 
-- GET `/polls/:id`
-- Returns a single poll by its ID
+-   GET `/polls/:id`
+-   Returns a single poll by its ID
 
 ### Create a Poll
 
-- POST `/polls/create`
-- Example Body:
+-   POST `/polls/create`
+-   Example Body:
 
 ```json
 {
-  "question": "Where do you want to eat?",
-  "vote_options": ["Chipotle", "Crumbl Cookies", "Wawa"]
+	"question": "Where do you want to eat?",
+	"vote_options": ["Chipotle", "Crumbl Cookies", "Wawa"]
 }
 ```
 
-- Returns the created poll object
+-   Returns the created poll object
 
 ### Vote on a Poll
 
-- POST `/polls/:id/vote`
-- Example Body:
+-   POST `/polls/:id/vote`
+-   Example Body:
 
 ```json
 {
-  "pollID": "1",
-  "vote_option": "Option 1"
+	"pollID": "1",
+	"username": "JP",
+	"vote_option": "Option 1"
 }
 ```
 
-- Will only allow one vote per user, based on IP
-- Returns the updated poll object
+-   Will only allow one vote per user, based on IP
+-   Returns the updated poll object
 
 ## Project Structure
 
@@ -105,4 +100,8 @@ backend/
 
 ## Notes
 
-- All poll and vote data is stored in-memory. Restarting the server will clear all polls and votes.
+-   All poll and vote data is stored in-memory. Restarting the server will clear all polls and votes.
+
+## Author
+
+JohnPaul Nguyen [johnpaul.nguyen@rutgers.edu](mailto:johnpaul.nguyen@rutgers.edu)

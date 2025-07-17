@@ -15,7 +15,7 @@ export function getPollByID(req: Request, res: Response) {
 	const poll = polls.find((poll) => poll.id === pollID);
 
 	if (!poll) {
-		res.status(404).json("Poll not found");
+		res.status(404).json({ message: "Poll not found" });
 		return;
 	}
 
@@ -34,7 +34,8 @@ export function createPoll(req: Request, res: Response) {
 		id: newPollID,
 		question: req.body.question,
 		options: newPollOptions,
-		votes: []
+		votes: [],
+		createdAt: new Date()
 	};
 
 	polls.push(createdPoll);
@@ -49,19 +50,24 @@ export function voteOnPoll(req: Request, res: Response) {
 	const currentUserIP = req.ip || "";
 
 	if (!poll) {
-		res.status(404).json("Poll not found");
+		res.status(404).json({ message: "Poll not found" });
 		return;
 	}
 
 	const optionIndex = poll.options.findIndex(
-		(option) => option.option === req.body.vote_option
+		(option) =>
+			option.option.toLowerCase() === req.body.vote_option.toLowerCase()
 	);
 
 	if (optionIndex === -1) {
-		res.status(404).send(
-			"Option not found\nHere are the available options: " +
-				JSON.stringify(poll.options)
-		);
+		let optionNames = "";
+		poll.options.forEach((option) => {
+			optionNames = optionNames + " | " + option.option;
+		});
+
+		res.status(404).json({
+			message: `Option not found\nHere are the available options${optionNames}`,
+		});
 		return;
 	}
 
@@ -74,8 +80,13 @@ export function voteOnPoll(req: Request, res: Response) {
 			.json({ message: "You have already voted in this poll." });
 	}
 
-	poll.votes.push({ userIP: currentUserIP });
 	poll.options[optionIndex].voteCount++;
-
-	res.status(200).send(JSON.stringify(poll));
+	poll.votes.push({
+		userIP: currentUserIP,
+		userName: req.body.username,
+		userVote: poll.options[optionIndex],
+		userVoteDate: new Date(),
+	});
+	
+	res.status(200).json(JSON.stringify(poll));
 }

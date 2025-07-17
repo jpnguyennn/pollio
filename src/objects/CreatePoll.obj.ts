@@ -5,6 +5,9 @@ export interface Option {
 
 export interface Vote {
 	userIP: string;
+	userName: string;
+	userVote: Option;
+	userVoteDate: Date;
 }
 
 export interface CreatePollObj {
@@ -12,4 +15,5 @@ export interface CreatePollObj {
 	question: string;
 	options: Option[];
 	votes: Vote[];
+	createdAt: Date;
 }

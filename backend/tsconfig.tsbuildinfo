@@ -1,1 +1,0 @@
-{"root":["./src/cli.ts","./src/createapp.ts","./src/index.ts","./src/handlers/polls.ts","./src/objects/createpoll.obj.ts","./src/routes/polls.ts"],"version":"5.8.3"}
