@@ -4,12 +4,12 @@ export interface Option {
 }
 
 export interface Vote {
-   userIP: string
+	userIP: string;
 }
 
 export interface CreatePollObj {
 	id: string;
 	question: string;
 	options: Option[];
-	votes: Vote[]
+	votes: Vote[];
 }
